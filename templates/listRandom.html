@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="content-section">  
+<audio controls autoplay id="playback"></audio>   
+</div> 
+
+{% for vocab in randList %}
+<div class="content-section" id="{{vocab}}" style="">
+<h1> {{vocab}} </h1> 
+<button id="" class="btn btn-info btn-sm" value="" type="button" data-toggle="collapse" data-target="#{{vocab}}more"> More </button>
+
+        <div class="collapse" id="{{vocab}}more">
+
+        {{ vocabList[vocab]['kk'] }}
+        <br> 
+        {% for i in range(1, (vocabList[vocab]['defs'] | length) + 1) %} 
+        {{vocabList[vocab]['defs'][i|string][0]}} {{vocabList[vocab]['defs'][i|string][1]}} 
+        <br> 
+        {% endfor %}                       
+
+        <button id="{{vocab}}zh" class="btn btn-secondary btn-sm" value="{{vocabList[vocab]['zh']['1'][1]}}" onclick="playAudio(this)"> {{vocabList[vocab]['zh']['1'][0]}} </button> 
+        <br>
+
+        </div> 
+
+  <br>
+  <br>
+
+  <button class="btn btn-danger btn-sm" name="{{vocab}}"  value="1" onclick="setVocab(this)"> Challenge </button>
+  <button class="btn btn-warning btn-sm" name="{{vocab}}"  value="2" onclick="setVocab(this)"> Moderate </button>
+  <button class="btn btn-success btn-sm" name="{{vocab}}"  value="3" onclick="setVocab(this)"> Easy </button>
+  
+  <br>
+  <br> 
+
+  <button class="btn btn-secondary btn-sm"> Report Mistake </button>
+
+</div> 
+{% endfor%}
+          
+                  
+        
+
+
+{% endblock content %}
+
+{% block script %}
+
+<script>
+
+let player = document.getElementById('playback')
+
+function playAudio(current) {
+    player.src = current.value   
+}
+
+function setVocab(current) {
+  $.ajax({
+			data : {
+                state : current.value,
+                vocab : current.name
+			},
+			type : 'POST',
+      url : '/update', 
+           
+		})
+		.done(function(data) {  
+      colors = ['pink', 'red', 'yellow', 'green']           
+            if (data.state == 1) {                                
+               document.getElementById(data.vocab).style = "background:red"
+            }
+            else if (data.state == 2) {                                
+               document.getElementById(data.vocab).style = "background:yellow"
+            }
+            else if (data.state == 3) {                                
+               document.getElementById(data.vocab).style = "background:green"         
+            }
+		});
+    
+}
+
+
+</script>
+{% endblock %}
+
+
+

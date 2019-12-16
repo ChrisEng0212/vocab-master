@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="content-section">  
+<audio controls autoplay id="playback"></audio>   
+</div> 
+
+
+<div class="content-section">   
+
+          <table class="table table-striped">
+            <tr>
+              <th>Word</th>             
+              <th>GL</th>
+              <th>Aud</th>
+              <th>More</th> 
+            </tr>
+            {% for vocab in vocabList %}
+            <tr>
+              <td>{{ vocab }}</td>                         
+              <td>{% for i in range(1, (vocabList[vocab]['defs'] | length) + 1) %} {{vocabList[vocab]['defs'][i|string][0]}} {% endfor %}</td>
+              <!-- choose random audio form the list -->
+              {% set random = range(0, vocabList[vocab]['Audio'] | length ) | random %}
+              
+              {% if vocabList[vocab]['Audio'] | length > 1 %}
+              <td><button id="{{vocab}}" class="btn btn-danger btn-sm" value="{{ vocabList[vocab]['Audio'][random] }}"  onclick="playAudio(this)"> Play </button></td>
+              {% else %}
+              <td><button id="{{vocab}}" class="btn btn-info btn-sm" value="{{ vocabList[vocab]['Audio'][random] }}"  onclick="playAudio(this)"> Play </button></td>
+              {% endif %}
+
+              {% if 'longdef' in vocabList[vocab]['tags'] | string %}
+              <td><button id="" class="btn btn-danger btn-sm" value="" type="button" data-toggle="collapse" data-target="#{{vocab}}more"> More </button></td>
+              {% else %}
+              <td><button id="" class="btn btn-success btn-sm" value="" type="button" data-toggle="collapse" data-target="#{{vocab}}more"> More </button></td>  
+              {% endif %}
+
+
+            </tr>
+            <tr class="collapse" id="{{vocab}}more">
+            <td colspan="7"> 
+              {{ vocabList[vocab]['kk'] }}
+              <br> 
+              {% for i in range(1, (vocabList[vocab]['defs'] | length) + 1) %} 
+              {{vocabList[vocab]['defs'][i|string][0]}} {{vocabList[vocab]['defs'][i|string][1]}} 
+              <br> 
+              {% endfor %}                       
+              
+              <button id="{{vocab}}zh" class="btn btn-secondary btn-sm" value="{{vocabList[vocab]['zh']['1'][1]}}" onclick="playAudio(this)"> {{vocabList[vocab]['zh']['1'][0]}} </button> 
+              <br>
+
+                  
+            
+            
+            </td> 
+          </tr>   
+            {% endfor %}
+          </table>
+    
+        </div>
+      </div>
+
+
+
+{% endblock content %}
+
+{% block script %}
+
+<script>
+
+let player = document.getElementById('playback')
+
+function playAudio(current) {
+    player.src = current.value   
+}
+
+
+</script>
+{% endblock %}
+
+
+

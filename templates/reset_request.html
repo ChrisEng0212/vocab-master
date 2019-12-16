@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="content-section">
+    <h1> New Password Request </h1>
+</div>
+
+
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag () }}  <!-- adding a csfr token, protection, related tot he secret key-->
+            <fieldset class="form-group">
+                                                
+                <div class="form-group"> 
+                    {{ form.email.label (class="form-control-label")}} 
+                        {% if form.email.errors %}
+                            {{ form.email (class="form-control form-control-lg is-invalid")}}  <!-- is invalid is the class-->
+                            <div class="invalid-feedback">
+                                {% for error in form.email.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>                          
+                        {% else %}
+                            {{ form.email(class="form-control form-control-lg")}}
+                        {% endif %}                 
+                </div>
+                
+                
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info", onclick="myFunction()")}}
+            </div>
+            
+            
+
+        </form>
+    </div>
+    
+{% endblock content %}
+
+{% block script %}
+
+<script type="text/javascript">
+function myFunction() {
+  alert("Please wait a minute while an email is created for you");
+}
+</script>
+
+{% endblock %}
