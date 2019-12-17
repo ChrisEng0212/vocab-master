@@ -13,8 +13,7 @@
         <div class="content-section" id="{{vocab}}card" name="">
     {% endif %}
 
-<h1> {{vocab}} </h1> 
-<button id="" class="btn btn-info btn-sm" value="" type="button" data-toggle="collapse" data-target="#{{vocab}}more"> More </button>
+<h1> <a data-toggle="collapse" data-target="#{{vocab}}more"> {{vocab}}<a> </h1> 
 
         <div class="collapse" id="{{vocab}}more">
 
@@ -25,12 +24,11 @@
         <br> 
         {% endfor %}                       
 
-        <button id="{{vocab}}zh" class="btn btn-secondary btn-sm" value="{{vocabList[vocab]['zh']['1'][1]}}" onclick="playAudio(this)"> {{vocabList[vocab]['zh']['1'][0]}} </button> 
+        <button style="display:none" id="{{vocab}}zh" class="btn btn-secondary btn-sm" value="{{vocabList[vocab]['zh']['1'][1]}}" onclick="playAudio(this)"> {{vocabList[vocab]['zh']['1'][0]}} </button> 
         <br>
 
         </div> 
-
-  <br>
+         
   <br>
 
   <button class="btn btn-outline-danger btn-sm" name="{{vocab}}"  value="1" onclick="setVocab(this)"> Challenge </button>
@@ -38,9 +36,7 @@
   <button class="btn btn-outline-success btn-sm" name="{{vocab}}"  value="3" onclick="setVocab(this)"> No Problem </button>
   
   <br>
-  <br> 
-
-  <button class="btn btn-secondary btn-sm"> Report Mistake </button>
+  <button style="display:none" class="btn btn-secondary btn-sm"> Report Mistake </button>
 
 </div> 
 {% endfor%}

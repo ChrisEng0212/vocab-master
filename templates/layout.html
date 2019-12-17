@@ -43,7 +43,7 @@
                         <div class="navbar-nav">
                           <a class="nav-item nav-link" href= "{{ url_for ('home') }}">About</a> 
                           <a class="nav-item nav-link" href= "{{ url_for ('listOptions') }}">Lists</a> 
-                          <a class="nav-item nav-link" href= "{{ url_for ('listRandoms') }}">Tests</a>                            
+                          <a class="nav-item nav-link" href= "{{ url_for ('vocabRandom', rand=1, count=9) }}">Tests</a>                            
                         {% else %}
                           <a class="nav-item nav-link" href="{{ url_for ('login') }}">Login</a> 
                           <a class="nav-item nav-link" href="{{ url_for ('register') }}">Register</a>
