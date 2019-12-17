@@ -7,7 +7,12 @@
 </div> 
 
 {% for vocab in randList %}
-<div class="content-section" id="{{vocab}}" style="">
+    {% if vocab in student_vocab %}
+        <div class="content-section" id="{{vocab}}card" name="{{student_vocab[vocab]['state']}}">            
+    {% else %}
+        <div class="content-section" id="{{vocab}}card" name="">
+    {% endif %}
+
 <h1> {{vocab}} </h1> 
 <button id="" class="btn btn-info btn-sm" value="" type="button" data-toggle="collapse" data-target="#{{vocab}}more"> More </button>
 
@@ -28,9 +33,9 @@
   <br>
   <br>
 
-  <button class="btn btn-danger btn-sm" name="{{vocab}}"  value="1" onclick="setVocab(this)"> Challenge </button>
-  <button class="btn btn-warning btn-sm" name="{{vocab}}"  value="2" onclick="setVocab(this)"> Moderate </button>
-  <button class="btn btn-success btn-sm" name="{{vocab}}"  value="3" onclick="setVocab(this)"> Easy </button>
+  <button class="btn btn-outline-danger btn-sm" name="{{vocab}}"  value="1" onclick="setVocab(this)"> Challenge </button>
+  <button class="btn btn-outline-warning btn-sm" name="{{vocab}}"  value="2" onclick="setVocab(this)"> Unsure </button>
+  <button class="btn btn-outline-success btn-sm" name="{{vocab}}"  value="3" onclick="setVocab(this)"> No Problem </button>
   
   <br>
   <br> 
@@ -48,41 +53,8 @@
 
 {% block script %}
 
-<script>
-
-let player = document.getElementById('playback')
-
-function playAudio(current) {
-    player.src = current.value   
-}
-
-function setVocab(current) {
-  $.ajax({
-			data : {
-                state : current.value,
-                vocab : current.name
-			},
-			type : 'POST',
-      url : '/update', 
-           
-		})
-		.done(function(data) {  
-      colors = ['pink', 'red', 'yellow', 'green']           
-            if (data.state == 1) {                                
-               document.getElementById(data.vocab).style = "background:red"
-            }
-            else if (data.state == 2) {                                
-               document.getElementById(data.vocab).style = "background:yellow"
-            }
-            else if (data.state == 3) {                                
-               document.getElementById(data.vocab).style = "background:green"         
-            }
-		});
-    
-}
 
 
-</script>
 {% endblock %}
 
 

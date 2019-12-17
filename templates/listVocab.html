@@ -8,32 +8,29 @@
 
 
 <div class="content-section">   
+<legend class="border-bottom mb-4">{{header}}</legend>
 
           <table class="table table-striped">
             <tr>
               <th>Word</th>             
               <th>GL</th>
-              <th>Aud</th>
-              <th>More</th> 
+              <th>Aud</th>               
             </tr>
             {% for vocab in vocabList %}
-            <tr>
-              <td>{{ vocab }}</td>                         
+              {% if vocab in student_vocab %}
+                <tr name="{{student_vocab[vocab]['state']}}" id="{{vocab}}card">
+              {% else %}
+                <tr  id="{{vocab}}card">
+              {% endif %}
+              <td><a data-toggle="collapse" data-target="#{{vocab}}more" href="#"> {{ vocab }}</a></td>                         
               <td>{% for i in range(1, (vocabList[vocab]['defs'] | length) + 1) %} {{vocabList[vocab]['defs'][i|string][0]}} {% endfor %}</td>
               <!-- choose random audio form the list -->
               {% set random = range(0, vocabList[vocab]['Audio'] | length ) | random %}
               
-              {% if vocabList[vocab]['Audio'] | length > 1 %}
-              <td><button id="{{vocab}}" class="btn btn-danger btn-sm" value="{{ vocabList[vocab]['Audio'][random] }}"  onclick="playAudio(this)"> Play </button></td>
-              {% else %}
-              <td><button id="{{vocab}}" class="btn btn-info btn-sm" value="{{ vocabList[vocab]['Audio'][random] }}"  onclick="playAudio(this)"> Play </button></td>
-              {% endif %}
-
-              {% if 'longdef' in vocabList[vocab]['tags'] | string %}
-              <td><button id="" class="btn btn-danger btn-sm" value="" type="button" data-toggle="collapse" data-target="#{{vocab}}more"> More </button></td>
-              {% else %}
-              <td><button id="" class="btn btn-success btn-sm" value="" type="button" data-toggle="collapse" data-target="#{{vocab}}more"> More </button></td>  
-              {% endif %}
+              
+              <td><button id="{{vocab}}" class="btn btn-outline-secondary info btn-sm" value="{{ vocabList[vocab]['Audio'][random] }}"  onclick="playAudio(this)"> Play </button></td>
+              
+              
 
 
             </tr>
@@ -48,6 +45,11 @@
               
               <button id="{{vocab}}zh" class="btn btn-secondary btn-sm" value="{{vocabList[vocab]['zh']['1'][1]}}" onclick="playAudio(this)"> {{vocabList[vocab]['zh']['1'][0]}} </button> 
               <br>
+              <br>
+
+              <button class="btn btn-outline-danger btn-sm" name="{{vocab}}"  value="1" onclick="setVocab(this)"> Challenge </button>
+              <button class="btn btn-outline-warning btn-sm" name="{{vocab}}"  value="2" onclick="setVocab(this)"> Unsure </button>
+              <button class="btn btn-outline-success btn-sm" name="{{vocab}}"  value="3" onclick="setVocab(this)"> No Problem </button>
 
                   
             
@@ -66,16 +68,8 @@
 
 {% block script %}
 
-<script>
-
-let player = document.getElementById('playback')
-
-function playAudio(current) {
-    player.src = current.value   
-}
 
 
-</script>
 {% endblock %}
 
 

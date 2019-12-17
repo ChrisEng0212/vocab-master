@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="content-section">  
+<audio controls autoplay id="playback"></audio>   
+</div> 
+
+
+<div class="content-section"> 
+
+<div class="dropdown show">
+  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    List by Letter
+  </a>
+
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+  {% for letter in alphabet %}
+            <a class="dropdown-item" href="{{ url_for('vocabSorter', filt=letter) }}">{{letter}}</a>
+  {% endfor %}    
+  </div>
+</div>
+
+<br>
+
+<div class="dropdown show">
+  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    List by Challenge
+  </a>
+
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+  {% for state in states %}
+            <a class="dropdown-item" href="{{ url_for('vocabSorter', filt=state) }}">{{states[state]}}</a>
+  {% endfor %}    
+  </div>
+</div>
+
+<br>
+
+<div class="dropdown show">
+  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    List by Category
+  </a>
+
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+  {% for cat in categ %}
+            <a class="dropdown-item" href="{{ url_for('vocabSorter', filt=cat) }}">{{categ[cat]}}</a>
+  {% endfor %}    
+  </div>
+</div>
+
+<br>
+
+<div class="dropdown show">
+  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    List by Seen
+  </a>
+
+  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+  {% for time in times %}
+            <a class="dropdown-item" href="{{ url_for('vocabSorter', filt=time) }}">{{times[time]}}</a>
+  {% endfor %}    
+  </div>
+</div>
+
+<br>
+
+
+
+{% endblock content %}
+
+{% block script %}
+
+<script>
+
+
+</script>
+{% endblock %}
+
+
+
