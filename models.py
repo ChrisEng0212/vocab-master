@@ -19,8 +19,8 @@ class User(db.Model, UserMixin): #import the model
     image_file = db.Column(db.String(), nullable=False, default='profiles/default.PNG') #images will be hashed to 20 and images could be the same
     password = db.Column(db.String(60), nullable=False)    
     device = db.Column (db.String(), nullable=False)  
-    old_email = db.Column(db.String(120), unique=True, nullable=False)
-    classroom = db.Column(db.String(20), unique=True, nullable=False)
+    old_email = db.Column(db.String(120), nullable=False)
+    classroom = db.Column(db.String(20), nullable=False)
     j_location = db.Column(db.String(120), unique=True, nullable=False)
 
 
@@ -29,13 +29,13 @@ class User(db.Model, UserMixin): #import the model
 class MyModelView(ModelView):
     def is_accessible(self):
         if current_user.is_authenticated:
-            if current_user.id == 1:
+            if current_user.username == 'Chris':
                 return True
             else:
                 return False
         else:
             # need to change back to false in production mode
-            return True
+            return False
 
     #https://danidee10.github.io/2016/11/14/flask-by-example-7.html
 

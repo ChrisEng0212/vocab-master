@@ -81,14 +81,15 @@ def register():
         
         jstring = {}
         bucket_name = 'lms-tester'
-        file_name = "jfolder/" + username + '.json'
+        classroom = '1'
+        file_name = "jfolder/" + username + '_' + classroom + '.json'
         
         s3_resource.Bucket(bucket_name).put_object(Key=file_name, Body=str(jstring))
         
         j_location = "https://lms-tester.s3-ap-northeast-1.amazonaws.com/" + file_name
         
-        user = User(username=username, studentID = form.studentID.data, email = form.email.data, old_email = form.email.data, 
-        password = hashed_password, device = form.device.data, j_location=j_location, classroom=1)
+        user = User(username=username, studentID = form.studentID.data, email=form.email.data, old_email = form.email.data, 
+        password = hashed_password, device = form.device.data, j_location=j_location, classroom=classroom)
         db.session.add(user)
 
         db.session.commit()

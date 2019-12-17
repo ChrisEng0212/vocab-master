@@ -28,6 +28,7 @@ def loadMaster():
     return jMaster    
 
 @app.route("/listoptions", methods=['GET','POST'])
+@login_required 
 def listOptions():   
 
     categ = {
@@ -56,6 +57,7 @@ def listOptions():
     return render_template('listMenu.html', title='Vocab', alphabet=alphabet, times=times, states=states, categ=categ )
 
 @app.route("/listrandoms", methods=['GET','POST'])
+@login_required 
 def listRandoms():
     
     vocabList = loadMaster()
@@ -75,20 +77,22 @@ def listRandoms():
 
 
 def loadJson():
-    file_name = 'jfolder/' + current_user.username + '.json'
+    file_name = (User.query.filter_by(id=current_user.id).first().j_location).split('com/')[1]
+    print (file_name)
     content_object = s3_resource.Object('lms-tester', file_name)
     file_content = content_object.get()['Body'].read().decode('utf-8')
     jload = json.loads(file_content)
     return jload
 
 def putJson(updateDict):
-    file_name = 'jfolder/' + current_user.username + '.json'    
+    file_name = (User.query.filter_by(id=current_user.id).first().j_location).split('com/')[1]
     jstring = json.dumps(updateDict)
     s3_resource.Bucket('lms-tester').put_object(Key=file_name, Body=jstring)
     return jstring
 
 
 @app.route("/list/<string:filt>", methods=['GET','POST'])
+@login_required 
 def vocabSorter(filt): 
     vocabList = loadMaster()    
     student_vocab = loadJson()
@@ -154,6 +158,7 @@ def vocabSorter(filt):
 
 
 @app.route('/update', methods=['POST', 'GET'])
+@login_required 
 def vocabUpdate():
 
     state = request.form ['state']
