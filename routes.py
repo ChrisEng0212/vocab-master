@@ -23,8 +23,7 @@ def loadMaster():
     file_name = 'jfolder/' + 'master' + '.txt'
     content_object = s3_resource.Object('lms-tester', file_name)
     file_content = content_object.get()['Body'].read().decode('utf-8')
-    with open('vocab1.txt', 'r') as json_file:
-        jMaster = json.load(json_file)    
+    jMaster = json.loads(file_content)    
     return jMaster    
 
 @app.route("/listoptions", methods=['GET','POST'])
@@ -40,7 +39,8 @@ def listOptions():
         'mdf' : 'Multiple Definitions'   
     }
 
-    alphabet ='abcdefghijklmnopqrstuvwxyz'
+    alphabet1 ='abcdefghijk'
+    alphabet2 ='lmnopqrstuvwxyz'
 
     states = {
         '1' : 'Hard',
@@ -54,7 +54,8 @@ def listOptions():
         'mn' : 'last month'
     }
 
-    return render_template('listMenu.html', title='Vocab', alphabet=alphabet, times=times, states=states, categ=categ )
+    return render_template('listMenu.html', title='Vocab', alphabet1=alphabet1, 
+    alphabet2=alphabet2, times=times, states=states, categ=categ )
 
 @app.route("/listrandoms", methods=['GET','POST'])
 @login_required 
@@ -64,8 +65,7 @@ def listRandoms():
     
     allItems = len(vocabList)
 
-    listicle = {
-        'all' : 'All items', 
+    listicle = {        
         'pro' : 'Proper Nouns', 
         'two' : 'Phrase (2 words)', 
         'thr' : 'Phrases (3+ words)',         
