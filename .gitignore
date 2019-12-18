@@ -8,6 +8,7 @@ static/zh3
 oldfiles
 
 vocabChecker.py
+vocabSheet.py
 vocabScraper.py
 vocabTranslate.py
 vocabAudio.py
