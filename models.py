@@ -23,6 +23,14 @@ class User(db.Model, UserMixin): #import the model
     classroom = db.Column(db.String(20), nullable=False)
     j_location = db.Column(db.String(120), unique=True, nullable=False)
 
+class Problems(db.Model): #import the model
+    id = db.Column(db.Integer, primary_key=True) #kind of value and the key unique to the user
+    date_added = db.Column(db.DateTime, nullable=False, default=datetime.now)
+    username =  db.Column(db.String(20)) #must be a unique name and cannot be null
+    studentID = db.Column(db.String())
+    word = db.Column(db.String())
+    chinese = db.Column(db.String())
+    audio = db.Column(db.String())    
 
 
 
@@ -46,5 +54,6 @@ class MyModelView(ModelView):
 admin = Admin(app)
 
 admin.add_view(MyModelView(User, db.session))
+admin.add_view(MyModelView(Problems, db.session))
 
 

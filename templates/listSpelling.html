@@ -28,8 +28,9 @@
         <br> 
         {% endfor %}                       
 
-        <button style="display:none" id="{{vocab}}zh" class="btn btn-secondary btn-sm" value="{{vocabList[vocab]['zh']['1'][1]}}" onclick="playAudio(this)"> {{vocabList[vocab]['zh']['1'][0]}} </button> 
         <br>
+
+        <button value="{{vocab}}" class="btn btn-secondary btn-sm" onclick="report(this)"> Report Mistake </button>
 
         </div> 
          
@@ -40,7 +41,7 @@
   <button class="btn btn-outline-success btn-sm" name="{{vocab}}"  value="3" onclick="setVocab(this)"> No Problem </button>
   
   <br>
-  <button style="display:none" class="btn btn-secondary btn-sm"> Report Mistake </button>
+  
 
 </div> 
 {% endfor%}

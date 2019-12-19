@@ -185,8 +185,9 @@ def vocabUpdate():
 
 @app.route("/random/<int:rand>/<int:count>", methods=['GET','POST'])
 def vocabRandom(rand, count):
-       
+     
     vocabList = loadMaster()
+    
 
     randList = {}
     while len (randList) < count:
@@ -200,3 +201,24 @@ def vocabRandom(rand, count):
         return render_template('listRandom.html', title='Random', vocabList=vocabList, randList=randList)
     if rand == 2:    
         return render_template('listSpelling.html', title='Random', vocabList=vocabList, randList=randList)
+
+
+@app.route('/problem', methods=['POST', 'GET'])
+@login_required 
+def report_problem():
+
+    vocabList = loadMaster()
+    vocab = request.form ['vocab'] 
+
+    model = Problems()
+    vocabList[vocab]
+    chinese = vocabList[vocab]['zh']['1']
+    audio = vocabList[vocab]['Audio']
+
+    newProblem = Problems(username=current_user.username, studentID=current_user.studentID, 
+    word=vocab, chinese=chinese, audio=audio)
+    db.session.add(newProblem)
+    db.session.commit()
+
+    print (newProblem)
+    return jsonify({'vocab' : vocab})   

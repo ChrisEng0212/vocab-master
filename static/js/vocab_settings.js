@@ -40,3 +40,18 @@ function setVocab(current) {
 		});
     
 }
+
+function report(current) {
+   $.ajax({
+          data : {                 
+                 vocab : current.value
+          },
+          type : 'POST',
+            url : '/problem', 
+            
+       })
+       .done(function(data) {  
+          alert('Thank you for reporting a mistake')
+       });
+     
+ }
