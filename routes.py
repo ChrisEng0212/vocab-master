@@ -196,6 +196,7 @@ def vocabRandom(rand, count):
         else: 
             randList[random_vocab] = vocabList[random_vocab]
     
-    
-    
-    return render_template('listRandom.html', title='Random', vocabList=vocabList, randList=randList)
+    if rand == 1:    
+        return render_template('listRandom.html', title='Random', vocabList=vocabList, randList=randList)
+    if rand == 2:    
+        return render_template('listSpelling.html', title='Random', vocabList=vocabList, randList=randList)
