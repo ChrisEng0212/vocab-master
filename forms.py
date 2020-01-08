@@ -19,8 +19,8 @@ class RegistrationForm(FlaskForm):
 
     username = StringField ('Name in English', 
                                 validators=[DataRequired(), Length(min=2, max=20)])    
-    studentID = StringField ('Student ID (9 numbers)', 
-                                validators=[DataRequired(), Length(9)])
+    studentID = StringField ('Student ID', 
+                                validators=[DataRequired()])
     email = StringField('Email', 
                                 validators=[DataRequired(), Email()] )  
     device = RadioField('Main Phone Device', 
