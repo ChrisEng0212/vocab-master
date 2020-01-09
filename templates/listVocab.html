@@ -25,10 +25,10 @@
               <td><a data-toggle="collapse" data-target="#{{vocab}}more" href="#"> {{ vocab }}</a></td>                         
               <td>{% for i in range(1, (vocabList[vocab]['defs'] | length) + 1) %} {{vocabList[vocab]['defs'][i|string][0]}} {% endfor %}</td>
               <!-- choose random audio form the list -->
-              {% set random = range(0, vocabList[vocab]['Audio'] | length ) | random %}
               
               
-              <td><button id="{{vocab}}" class="btn btn-outline-secondary info btn-sm" value="{{ vocabList[vocab]['Audio'][random] }}"  onclick="playAudio(this)"> Play </button></td>
+              
+              <td><button id="{{vocab}}" class="btn btn-outline-secondary info btn-sm" value="{{ vocabList[vocab]['Audio']}}"  onclick="playAudio(this)"> Play </button></td>
               
               
 

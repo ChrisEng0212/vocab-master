@@ -3,10 +3,12 @@
 {% block content %}
 
 <div class="content-section">
-    <h1> Vocab App </h1>
+    <h1> Basic Vocab Web App </h1>
 
     <br>
+    {% if current_user.is_authenticated %}
     <h3> Welcome {{current_user.username}}. Have a nice day!
+    {% endif %}
 </div>
 
 
